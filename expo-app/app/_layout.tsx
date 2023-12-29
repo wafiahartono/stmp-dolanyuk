@@ -1,34 +1,29 @@
-import { Suspense, useEffect } from "react";
-import { useColorScheme } from "react-native";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider
-} from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
-import { TamaguiProvider, Text, Theme } from "tamagui";
+import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native"
+import { useFonts } from "expo-font"
+import { SplashScreen, Stack } from "expo-router"
+import { Suspense, useEffect } from "react"
+import { useColorScheme } from "react-native"
+import { TamaguiProvider, Text, Theme } from "tamagui"
 
-import { MySafeAreaView } from "../components/MySafeAreaView";
-import config from "../tamagui.config";
+import { MySafeAreaView } from "../components/MySafeAreaView"
+import AuthProvider from "../providers/auth"
+import config from "../tamagui.config"
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync()
 
 export default function Layout() {
-  const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme()
 
-  const [loaded] = useFonts({
+  const [fontLoaded] = useFonts({
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
     InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf")
-  });
+  })
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+    fontLoaded && SplashScreen.hideAsync()
+  }, [fontLoaded])
 
-  if (!loaded) return null;
+  if (!fontLoaded) return null
 
   return (
     <TamaguiProvider config={config}>
@@ -37,16 +32,18 @@ export default function Layout() {
           <ThemeProvider
             value={colorScheme === "light" ? DefaultTheme : DarkTheme}
           >
-            <MySafeAreaView>
-              <Stack
-                screenOptions={{
-                  headerShown: false
-                }}
-              />
-            </MySafeAreaView>
+            <AuthProvider>
+              <MySafeAreaView>
+                <Stack
+                  screenOptions={{
+                    statusBarTranslucent: true,
+                    headerShown: false,
+                  }} />
+              </MySafeAreaView>
+            </AuthProvider>
           </ThemeProvider>
         </Theme>
       </Suspense>
     </TamaguiProvider>
-  );
+  )
 }

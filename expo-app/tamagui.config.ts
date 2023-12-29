@@ -29,6 +29,9 @@ const headingFont = createInterFont();
 const bodyFont = createInterFont();
 
 const config = createTamagui({
+  settings: {
+    allowedStyleValues: "strict"
+  },
   animations,
   defaultTheme: "dark",
   shouldAddPrefersColorThemes: false,

@@ -6,9 +6,7 @@
         "Stack": {
           "staticConfig": {
             "acceptsClassName": true,
-            "defaultProps": {
-              "alignItems": "stretch"
-            },
+            "defaultProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -178,7 +176,6 @@
                 }
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -342,10 +339,7 @@
         "View": {
           "staticConfig": {
             "acceptsClassName": true,
-            "defaultProps": {
-              "display": "flex",
-              "flexDirection": "column"
-            },
+            "defaultProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -648,7 +642,6 @@
               "shadowOpacity": true
             },
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "span",
               "size": true,
               "pointerEvents": "none"
@@ -714,7 +707,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -884,7 +876,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "article",
               "flexDirection": "column"
             },
@@ -1045,7 +1036,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "aside",
               "flexDirection": "column"
             },
@@ -1232,7 +1222,6 @@
                 }
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -1400,7 +1389,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "tag": "fieldset"
             },
@@ -1582,7 +1570,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "footer",
               "flexDirection": "column"
             },
@@ -1743,7 +1730,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "header",
               "accessibilityRole": "header",
               "flexDirection": "column"
@@ -1991,7 +1977,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "main",
               "flexDirection": "column"
             },
@@ -2152,7 +2137,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "nav",
               "flexDirection": "column"
             },
@@ -2313,7 +2297,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "section",
               "flexDirection": "column",
               "accessibilityRole": "summary"
@@ -2624,7 +2607,6 @@
               "shadowOpacity": true
             },
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "span",
               "size": true,
               "pointerEvents": "none"
@@ -2656,7 +2638,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column"
             },
             "validStyles": {
@@ -2831,9 +2812,7 @@
         "Stack": {
           "staticConfig": {
             "acceptsClassName": true,
-            "defaultProps": {
-              "alignItems": "stretch"
-            },
+            "defaultProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -3009,7 +2988,6 @@
                 }
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -3270,10 +3248,7 @@
         "View": {
           "staticConfig": {
             "acceptsClassName": true,
-            "defaultProps": {
-              "display": "flex",
-              "flexDirection": "column"
-            },
+            "defaultProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -3427,7 +3402,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -3714,7 +3688,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "absolute",
               "fullscreen": true,
@@ -3894,7 +3867,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "absolute",
               "fullscreen": true,
@@ -4072,8 +4044,8 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "center",
               "flexDirection": "column",
+              "alignItems": "center",
               "justifyContent": "center",
               "position": "relative",
               "overflow": "hidden"
@@ -4344,7 +4316,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "button",
@@ -4666,7 +4637,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "button",
@@ -5019,7 +4989,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -5192,7 +5161,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -5473,7 +5441,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -5751,7 +5718,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -6033,7 +5999,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -6314,7 +6279,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -6595,7 +6559,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "button"
@@ -6910,7 +6873,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "button"
@@ -7224,8 +7186,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "display": "flex",
-              "flexDirection": "column",
               "tag": "button"
             },
             "validStyles": {
@@ -7387,7 +7347,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "size": "$true",
               "unstyled": false,
@@ -7674,7 +7633,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -7961,7 +7919,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -8246,7 +8203,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -8431,10 +8387,7 @@
         "DialogTrigger": {
           "staticConfig": {
             "acceptsClassName": true,
-            "defaultProps": {
-              "display": "flex",
-              "flexDirection": "column"
-            },
+            "defaultProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -8594,7 +8547,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "form"
             },
             "validStyles": {
@@ -8756,7 +8708,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "form"
             },
             "validStyles": {
@@ -8915,10 +8866,7 @@
         "FormTrigger": {
           "staticConfig": {
             "acceptsClassName": true,
-            "defaultProps": {
-              "display": "flex",
-              "flexDirection": "column"
-            },
+            "defaultProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -9078,7 +9026,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -9408,7 +9355,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -9619,7 +9565,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -9790,7 +9735,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "li"
@@ -10092,7 +10036,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "li"
@@ -10427,7 +10370,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -10629,7 +10571,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -10831,7 +10772,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -10999,7 +10939,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -11187,7 +11126,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -11469,7 +11407,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column"
             },
             "validStyles": {
@@ -11645,7 +11582,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -11833,7 +11769,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -12113,7 +12048,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -12394,7 +12328,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -12673,7 +12606,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -12951,7 +12883,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -13227,7 +13158,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column"
             },
             "validStyles": {
@@ -13527,7 +13457,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "width": "100%"
             },
@@ -13703,7 +13632,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row",
               "aria-hidden": true,
               "children": "Component"
@@ -13881,7 +13809,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "borderColor": "$borderColor",
               "flexShrink": 0,
               "borderWidth": 0,
@@ -14062,7 +13989,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "borderColor": "$borderColor",
               "flexShrink": 0,
               "borderWidth": 0,
@@ -14243,8 +14169,8 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "center",
               "flexDirection": "column",
+              "alignItems": "center",
               "justifyContent": "center"
             },
             "validStyles": {
@@ -14513,8 +14439,8 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "center",
               "flexDirection": "column",
+              "alignItems": "center",
               "justifyContent": "center",
               "circular": true
             },
@@ -14784,7 +14710,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -14974,7 +14899,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row",
               "unstyled": false
             },
@@ -15176,7 +15100,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -15464,7 +15387,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row",
               "unstyled": false
             },
@@ -15666,7 +15588,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -15954,7 +15875,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "relative"
             },
@@ -16134,7 +16054,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -16417,7 +16336,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "absolute",
               "backgroundColor": "$background"
@@ -16599,7 +16517,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "relative",
               "unstyled": false
@@ -16794,7 +16711,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row"
             },
             "validStyles": {
@@ -16968,7 +16884,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column"
             },
             "validStyles": {
@@ -17142,7 +17057,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "relative"
             },
@@ -17319,7 +17233,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row"
             },
             "validStyles": {
@@ -17541,7 +17454,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column"
             },
             "validStyles": {
@@ -17805,7 +17717,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -18010,7 +17921,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -18214,7 +18124,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -18498,7 +18407,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row"
             },
             "validStyles": {
@@ -18749,7 +18657,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -18951,7 +18858,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -19152,7 +19058,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -19353,7 +19258,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -19554,7 +19458,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -19755,7 +19658,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -19956,7 +19858,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -20157,7 +20058,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -20358,7 +20258,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -20526,7 +20425,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "position": "absolute",
               "width": 1,
               "height": 1,
@@ -20949,6 +20847,10 @@
       "pointerCoarse": {
         "pointer": "coarse"
       }
+    },
+    "settings": {
+      "webContainerType": "inline-size",
+      "allowedStyleValues": "strict"
     },
     "defaultTheme": "dark",
     "shouldAddPrefersColorThemes": false,
@@ -47697,9 +47599,6 @@
       }
     },
     "unset": {},
-    "settings": {
-      "webContainerType": "inline-size"
-    },
     "inverseShorthands": {
       "userSelect": "ussel",
       "cursor": "cur",

@@ -27,7 +27,7 @@ $select_event_sql = <<<SQL
         ON dolanyuk_attendances.event = dolanyuk_events.id
 
     JOIN dolanyuk_games
-        ON dolanyuk_events.game = dolanyuk_games.id
+        ON dolanyuk_games.id = dolanyuk_events.game
 
     WHERE
         (

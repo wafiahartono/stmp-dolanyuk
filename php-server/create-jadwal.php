@@ -2,7 +2,7 @@
 
 require __DIR__ . "/kernel.php";
 
-$game = (int) request()->input("game");
+$game_id = (int) request()->input("game");
 $title = request()->input("title");
 $datetime = request()->input("datetime");
 $location = request()->input("location");
@@ -26,15 +26,13 @@ if (
 
     !($statement = $mysqli->prepare($insert_event_sql)) ||
 
-    !$statement->bind_param("isss", $game, $title, $datetime, $location) ||
+    !$statement->bind_param("isss", $game_id, $title, $datetime, $location) ||
 
     !$statement->execute() ||
 
     $statement->affected_rows <= 0 ||
 
-    ($event_id = $mysqli->insert_id) === 0 ||
-
-    !$statement->close()
+    ($event_id = $mysqli->insert_id) === 0
 
     ||
 
@@ -66,7 +64,7 @@ $select_event_sql = <<<SQL
     FROM dolanyuk_events
 
     JOIN dolanyuk_games
-        ON dolanyuk_events.game = dolanyuk_games.id
+        ON dolanyuk_games.id = dolanyuk_events.game
 
     WHERE dolanyuk_events.id = $event_id
 SQL;

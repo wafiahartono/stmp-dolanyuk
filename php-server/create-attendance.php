@@ -2,7 +2,7 @@
 
 require __DIR__ . "/kernel.php";
 
-$event = (int) request()->input("event");
+$event_id = (int) request()->input("event");
 
 $user_id = request()->user()->id;
 
@@ -13,7 +13,7 @@ SQL;
 if (
     !($statement = mysqli()->prepare($insert_attendance_sql)) ||
 
-    !$statement->bind_param("i", $event) ||
+    !$statement->bind_param("i", $event_id) ||
 
     !$statement->execute() ||
 

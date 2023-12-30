@@ -6,15 +6,19 @@ $email = request()->input("email");
 $password = request()->input("password");
 $name = request()->input("name");
 
+$insert_user_sql = <<<SQL
+    INSERT INTO dolanyuk_users (email, password, name) VALUES (?, ?, ?)
+SQL;
+
 $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-$statement = mysqli()->prepare(
-    "INSERT INTO dolanyuk_users (email, password, name) VALUES (?, ?, ?)"
-);
-
 if (
+    !($statement = mysqli()->prepare($insert_user_sql)) ||
+
     !$statement->bind_param("sss", $email, $hashed_password, $name) ||
+
     !$statement->execute() ||
+
     $statement->affected_rows <= 0
 ) {
     if ($statement->errno === 1062) {
@@ -24,11 +28,10 @@ if (
             ]
         ]);
 
-        http_response_code(422);
-    } else {
-        http_response_code(500);
+        $code = 422;
     }
 
+    http_response_code($code ?? 500);
     exit;
 }
 
@@ -39,10 +42,7 @@ $user = [
     "picture" => null,
 ];
 
-$payload = base64_encode(json_encode(["id" => $user["id"]]));
-$signature = hash_hmac("sha256", $payload, $_ENV["APP_KEY"]);
-
 echo json_encode([
     "user" => $user,
-    "token" => "$payload.$signature",
+    "token" => create_auth_token($user["id"]),
 ]);

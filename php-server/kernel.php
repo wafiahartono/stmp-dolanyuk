@@ -13,16 +13,14 @@ if ($_ENV["APP_DEBUG"]) {
 
 class Request
 {
-    private array $data;
-
-    public function __construct()
-    {
-        $this->data = $_POST;
-    }
-
     public function input(string $key)
     {
-        return $this->data[$key] ?? null;
+        return $_POST[$key] ?? null;
+    }
+
+    public function query(string $key)
+    {
+        return $_GET[$key] ?? null;
     }
 
     function user(): User
@@ -47,7 +45,7 @@ class User
     }
 }
 
-function request()
+function request(): Request
 {
     global $request;
 
@@ -68,9 +66,7 @@ function mysqli(): mysqli
         return $mysqli;
     }
 
-    $mysqli = new mysqli(
-        $_ENV["DB_HOST"], $_ENV["DB_USERNAME"], $_ENV["DB_PASSWORD"], $_ENV["DB_DATABASE"]
-    );
+    $mysqli = new mysqli($_ENV["DB_HOST"], $_ENV["DB_USERNAME"], $_ENV["DB_PASSWORD"], $_ENV["DB_DATABASE"]);
 
     if ($mysqli->connect_error) {
         http_response_code(500);
@@ -78,6 +74,17 @@ function mysqli(): mysqli
     }
 
     return $mysqli;
+}
+
+function create_auth_token(int $user_id): string
+{
+    $payload = base64_encode(json_encode([
+        "user_id" => $user_id
+    ]));
+
+    $signature = hash_hmac("sha256", $payload, $_ENV["APP_KEY"]);
+
+    return "$payload.$signature";
 }
 
 $route = basename($_SERVER["REQUEST_URI"]);
@@ -100,5 +107,7 @@ if (!in_array($route, $guest_routes)) {
 
     global $user;
 
-    $user = new User(json_decode(base64_decode($parts[0]))->id);
+    $payload = json_decode(base64_decode($parts[0]));
+
+    $user = new User($payload->user_id);
 }

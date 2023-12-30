@@ -1,32 +1,71 @@
 <?php
-    header("Access-Control-Allow-Origin: *");
-    $arr = null;
-    $conn = new mysqli("localhost","react_160419098","ubaya","react_160419098");
-    if($conn->connect_error)
-    {
-        $arr = ["result"=>"error","message"=>"unable to connect to database"];
-    }
-    else
-    {
-        $sql = "SELECT * FROM jadwal";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $data = [];
-        if($result->num_rows > 0)
-        {
-            while($r = mysqli_fetch_assoc($result))
-            {
-                array_push($data,$r);
-            }
-            $arr = ["result"=>"success","data"=>$data];
-        }
-        else
-        {
-            $arr = ["result"=>"error","message"=>"belum ada jadwal"];
-        }
-        echo json_encode($arr);
-    }
-    $stmt->close();
-    $conn->close();
-?>
+
+require __DIR__ . "/kernel.php";
+
+$query = request()->query("query") ?? "";
+$attended = boolval(request()->query("attended")) ? 1 : 0;
+
+$select_event_sql = <<<SQL
+    SELECT
+        dolanyuk_events.*,
+
+        (
+            SELECT COUNT(*)
+            FROM dolanyuk_attendances
+            WHERE dolanyuk_attendances.event = dolanyuk_events.id
+        ) AS players,
+
+        dolanyuk_games.name AS game_name,
+        dolanyuk_games.min_players,
+        dolanyuk_games.image
+
+    FROM `dolanyuk_events`
+
+    JOIN dolanyuk_attendances
+        ON dolanyuk_attendances.event = dolanyuk_events.id
+
+    JOIN dolanyuk_games
+        ON dolanyuk_events.game = dolanyuk_games.id
+
+    WHERE
+        (
+            dolanyuk_games.name LIKE ? OR
+            dolanyuk_events.title LIKE ? OR
+            dolanyuk_events.location LIKE ?
+        )
+        AND
+        (
+            ($attended = 1 AND dolanyuk_attendances.user = ?)
+            OR
+            ($attended = 0 AND 1)
+        )
+
+    GROUP BY dolanyuk_events.id
+
+    ORDER BY dolanyuk_events.datetime
+SQL;
+
+$query_pattern = "%$query%";
+
+if (
+    !($statement = mysqli()->prepare($select_event_sql)) ||
+
+    !$statement->bind_param(
+        "sssi",
+        $query_pattern,
+        $query_pattern,
+        $query_pattern,
+        request()->user()->id,
+    ) ||
+
+    !$statement->execute() ||
+
+    !($result = $statement->get_result())
+) {
+    http_response_code(500);
+    exit;
+}
+
+echo json_encode(
+    $result->fetch_all(MYSQLI_ASSOC)
+);

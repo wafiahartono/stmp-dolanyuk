@@ -4,14 +4,16 @@ require __DIR__ . "/kernel.php";
 
 $event = (int) request()->input("event");
 
+$user_id = request()->user()->id;
+
 $insert_attendance_sql = <<<SQL
-    INSERT INTO dolanyuk_attendances (user, event) VALUES (?, ?)
+    INSERT INTO dolanyuk_attendances (user, event) VALUES ($user_id, ?)
 SQL;
 
 if (
     !($statement = mysqli()->prepare($insert_attendance_sql)) ||
 
-    !$statement->bind_param("ii", request()->user()->id, $event) ||
+    !$statement->bind_param("i", $event) ||
 
     !$statement->execute() ||
 

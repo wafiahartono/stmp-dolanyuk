@@ -5,6 +5,8 @@ require __DIR__ . "/kernel.php";
 $query = request()->query("query") ?? "";
 $attended = boolval(request()->query("attended")) ? 1 : 0;
 
+$user_id = request()->user()->id;
+
 $select_event_sql = <<<SQL
     SELECT
         dolanyuk_events.*,
@@ -19,7 +21,7 @@ $select_event_sql = <<<SQL
         dolanyuk_games.min_players,
         dolanyuk_games.image
 
-    FROM `dolanyuk_events`
+    FROM dolanyuk_events
 
     JOIN dolanyuk_attendances
         ON dolanyuk_attendances.event = dolanyuk_events.id
@@ -35,7 +37,7 @@ $select_event_sql = <<<SQL
         )
         AND
         (
-            ($attended = 1 AND dolanyuk_attendances.user = ?)
+            ($attended = 1 AND dolanyuk_attendances.user = $user_id)
             OR
             ($attended = 0 AND 1)
         )
@@ -50,13 +52,7 @@ $query_pattern = "%$query%";
 if (
     !($statement = mysqli()->prepare($select_event_sql)) ||
 
-    !$statement->bind_param(
-        "sssi",
-        $query_pattern,
-        $query_pattern,
-        $query_pattern,
-        request()->user()->id,
-    ) ||
+    !$statement->bind_param("sss", $query_pattern, $query_pattern, $query_pattern) ||
 
     !$statement->execute() ||
 

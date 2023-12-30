@@ -7,6 +7,8 @@ $title = request()->input("title");
 $datetime = request()->input("datetime");
 $location = request()->input("location");
 
+$user_id = request()->user()->id;
+
 $mysqli = mysqli();
 
 $insert_event_sql = <<<SQL
@@ -14,7 +16,7 @@ $insert_event_sql = <<<SQL
 SQL;
 
 $insert_attendance_sql = <<<SQL
-    INSERT INTO dolanyuk_attendances (user, event) VALUES (?, ?)
+    INSERT INTO dolanyuk_attendances (user, event) VALUES ($user_id, ?)
 SQL;
 
 if (
@@ -38,7 +40,7 @@ if (
 
     !($statement = $mysqli->prepare($insert_attendance_sql)) ||
 
-    !$statement->bind_param("ii", request()->user()->id, $event_id) ||
+    !$statement->bind_param("i", $event_id) ||
 
     !$statement->execute() ||
 
@@ -61,7 +63,7 @@ $select_event_sql = <<<SQL
         dolanyuk_games.min_players,
         dolanyuk_games.image
 
-    FROM `dolanyuk_events`
+    FROM dolanyuk_events
 
     JOIN dolanyuk_games
         ON dolanyuk_events.game = dolanyuk_games.id

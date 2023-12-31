@@ -2,23 +2,22 @@ import { useRouter } from "expo-router"
 import { useEffect } from "react"
 import { Button, H1, Text, YStack } from "tamagui"
 
-import { useAuth } from "../providers/auth"
+import { useAuth, useSignOut } from "../providers/auth"
 
 export default function Home() {
-  const { user, logout } = useAuth()
-
   const router = useRouter()
 
-  useEffect(() => {
-    if (user === undefined) return
+  const { user } = useAuth()
+  const signOut = useSignOut()
 
+  useEffect(() => {
     user === null && router.replace("signin")
   }, [user])
 
   if (!user) return null
 
   return (
-    <YStack f={1} jc="center" p="$4">
+    <YStack f={1} jc="center" p="$4" bc="$backgroundStrong">
       <H1 ta="center" ls={-2}>
         DolanYuk Home
       </H1>
@@ -27,7 +26,7 @@ export default function Home() {
         Logged in as {user.name} ({user.email})
       </Text>
 
-      <Button mt="$4" onPress={() => logout()}>
+      <Button mt="$4" onPress={() => signOut()}>
         Log Out
       </Button>
     </YStack>

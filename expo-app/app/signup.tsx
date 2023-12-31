@@ -12,15 +12,13 @@ import {
   YStack,
 } from "tamagui"
 
-import { useAuth } from "../providers/auth"
+import { useSignUp } from "../providers/auth"
 import { ValidationError } from "../types/errors"
 
 export default function SignUp() {
-  const { useSignUp } = useAuth()
-
-  const [signUp, signUpState] = useSignUp()
-
   const router = useRouter()
+
+  const [signUpState, signUp] = useSignUp()
 
   const nameId = useId()
   const emailId = useId()
@@ -40,17 +38,16 @@ export default function SignUp() {
   const [passwordConfirmError, setPasswordConfirmError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (signUpState === undefined) return
+    if (!signUpState.isComplete) return
 
-    const state = signUpState
-
-    if (state === "Unit") {
+    if (signUpState.isSuccessful) {
       router.replace("")
 
-    } else if (state instanceof ValidationError) {
-      state.errors["email"] && setEmailError(state.errors["email"])
+    } else if (signUpState.error instanceof ValidationError) {
+      const errors = signUpState.error.errors
+      errors["email"] && setEmailError(errors["email"])
 
-    } else if (state instanceof Error) {
+    } else {
       setEmailError("An unexpected error has occurred.")
     }
   }, [signUpState])
@@ -130,10 +127,10 @@ export default function SignUp() {
       {passwordConfirmError && <Text mt="$2" col="$red10">{passwordConfirmError}</Text>}
 
       <Button
-        disabled={signUpState === "Loading"}
+        disabled={signUpState.isLoading}
         size="$5"
         mt="$5"
-        icon={signUpState === "Loading" ? <Spinner /> : null}
+        icon={signUpState.isLoading ? <Spinner /> : null}
         onPress={() => {
           let validated = true
 
@@ -173,7 +170,7 @@ export default function SignUp() {
             }
           }
 
-          validated && signUp({ email, password, name })
+          validated && signUp(email.trim(), password, name.trim())
         }}
       >
         Sign Up

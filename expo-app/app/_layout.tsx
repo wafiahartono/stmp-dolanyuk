@@ -32,15 +32,16 @@ export default function Layout() {
           <ThemeProvider
             value={colorScheme === "light" ? DefaultTheme : DarkTheme}
           >
-            <AuthProvider>
-              <MySafeAreaView>
+            <MySafeAreaView>
+              <AuthProvider>
                 <Stack
                   screenOptions={{
                     statusBarTranslucent: true,
+                    statusBarStyle: colorScheme === "light" ? "dark" : "light",
                     headerShown: false,
                   }} />
-              </MySafeAreaView>
-            </AuthProvider>
+              </AuthProvider>
+            </MySafeAreaView>
           </ThemeProvider>
         </Theme>
       </Suspense>

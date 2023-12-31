@@ -4,14 +4,14 @@ import { Button, H1, Text, YStack } from "tamagui"
 
 import { useAuth, useSignOut } from "../providers/auth"
 
-export default function Home() {
+export default function Index() {
   const router = useRouter()
 
   const { user } = useAuth()
   const signOut = useSignOut()
 
   useEffect(() => {
-    user === null && router.replace("signin")
+    user === null && router.replace("/signin")
   }, [user])
 
   if (!user) return null

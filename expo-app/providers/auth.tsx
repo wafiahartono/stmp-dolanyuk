@@ -132,11 +132,11 @@ export function useSignUp(): [TaskState, (email: string, password: string, name:
         body: getFormData({ email, password, name }),
       })
 
-      if (response.status === 422) throw new ValidationError({
-        ...(await response.json()).errors
-      })
+      if (response.status === 422)
+        throw new ValidationError({ ...(await response.json()).errors })
 
-      if (!response.ok) throw new HttpError(response.status)
+      if (!response.ok)
+        throw new HttpError(response.status)
 
       const { user, token } = await response.json()
 
@@ -169,9 +169,11 @@ export function useSignIn(): [TaskState, (email: string, password: string) => Pr
         body: getFormData({ email, password }),
       })
 
-      if (response.status === 401) throw new InvalidUserError()
+      if (response.status === 401)
+        throw new InvalidUserError()
 
-      if (!response.ok) throw new HttpError(response.status)
+      if (!response.ok)
+        throw new HttpError(response.status)
 
       const { user, token } = await response.json()
 

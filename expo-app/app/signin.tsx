@@ -120,7 +120,7 @@ export default function SignIn() {
           col="$gray10"
           fow="700"
           textDecorationLine="underline"
-          onPress={() => router.push("signup")}
+          onPress={() => router.push("/signup")}
           pressStyle={{ col: "$gray8" }}
         >
           Sign up

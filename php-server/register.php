@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . "/kernel.php";
+require_once __DIR__ . "/_app/kernel.php";
 
 $email = request()->input("email");
 $password = request()->input("password");
@@ -10,16 +10,18 @@ $insert_user_sql = <<<SQL
     INSERT INTO dolanyuk_users (email, password, name) VALUES (?, ?, ?)
 SQL;
 
-$hashed_password = password_hash($password, PASSWORD_BCRYPT);
+$password = password_hash($password, PASSWORD_BCRYPT);
 
 if (
     !($statement = mysqli()->prepare($insert_user_sql)) ||
 
-    !$statement->bind_param("sss", $email, $hashed_password, $name) ||
+    !$statement->bind_param("sss", $email, $password, $name) ||
 
     !$statement->execute() ||
 
-    $statement->affected_rows <= 0
+    $statement->affected_rows <= 0 ||
+
+    ($user_id = $mysqli->insert_id) === 0
 ) {
     if ($statement->errno === 1062) {
         echo json_encode([
@@ -35,14 +37,22 @@ if (
     exit;
 }
 
-$user = [
-    "id" => $mysqli->insert_id,
-    "email" => $email,
-    "name" => $name,
-    "picture" => null,
-];
+$select_user_sql = <<<SQL
+    SELECT * FROM dolanyuk_users WHERE id = $user_id
+SQL;
+
+if (
+    !($result = $mysqli->query($select_user_sql)) ||
+
+    !($user = $result->fetch_object())
+) {
+    http_response_code(500);
+    exit;
+}
+
+unset($user->password);
 
 echo json_encode([
     "user" => $user,
-    "token" => create_auth_token($user["id"]),
+    "token" => create_auth_token($user->id),
 ]);

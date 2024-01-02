@@ -12,8 +12,8 @@ import {
   YStack,
 } from "tamagui"
 
-import { useSignUp } from "../providers/auth"
-import { ValidationError } from "../types/errors"
+import { ValidationError } from "../lib/api"
+import { useSignUp } from "../lib/auth"
 
 export default function SignUp() {
   const router = useRouter()
@@ -41,10 +41,11 @@ export default function SignUp() {
     if (!signUpState.isComplete) return
 
     if (signUpState.isSuccessful) {
-      router.replace("")
+      router.replace("/events")
 
     } else if (signUpState.error instanceof ValidationError) {
       const errors = signUpState.error.errors
+
       errors["email"] && setEmailError(errors["email"])
 
     } else {
@@ -54,7 +55,6 @@ export default function SignUp() {
 
   return (
     <YStack f={1} jc="center" p="$4" backgroundColor="$backgroundStrong">
-
       <H1 ls={-2}>
         DolanYuk
       </H1>
@@ -130,7 +130,7 @@ export default function SignUp() {
         disabled={signUpState.isLoading}
         size="$5"
         mt="$5"
-        icon={signUpState.isLoading ? <Spinner /> : null}
+        iconAfter={signUpState.isLoading ? <Spinner /> : null}
         onPress={() => {
           let validated = true
 
@@ -177,24 +177,19 @@ export default function SignUp() {
       </Button>
 
       <XStack mt="$4" jc="center">
-
         <Text col="$gray10">
           Already signed up?
         </Text>
-
         <Text
           ml="$1"
           col="$gray10"
           fow="700"
-          textDecorationLine="underline"
           onPress={() => router.back()}
-          pressStyle={{ col: "$gray8" }}
+          pressStyle={{ col: "$blue10" }}
         >
           Sign in
         </Text>
-
       </XStack>
-
     </YStack>
   )
 }

@@ -11,18 +11,19 @@ import {
   YStack,
 } from "tamagui"
 
-import { useSignIn } from "../providers/auth"
-import { InvalidUserError } from "../types/errors"
+import { InvalidUserError } from "../lib/api"
+import { useAuth, useSignIn } from "../lib/auth"
 
 export default function SignIn() {
   const router = useRouter()
 
+  const { user } = useAuth()
   const [signInState, signIn] = useSignIn()
 
   const emailId = useId()
   const passwordId = useId()
 
-  const [email, setEmail] = useState("dbrussell1@tiny.cc")
+  const [email, setEmail] = useState("")
   const [emailError, setEmailError] = useState<string | null>(null)
 
   const [password, setPassword] = useState("")
@@ -32,7 +33,8 @@ export default function SignIn() {
     if (!signInState.isComplete) return
 
     if (signInState.isSuccessful) {
-      router.replace("")
+      console.log("sign in success (useEffect")
+      router.replace("/events")
 
     } else if (signInState.error instanceof InvalidUserError) {
       setEmailError("These credentials do not match our records.")
@@ -44,7 +46,6 @@ export default function SignIn() {
 
   return (
     <YStack f={1} jc="center" p="$4" backgroundColor="$backgroundStrong">
-
       <H1 ls={-2}>
         DolanYuk
       </H1>
@@ -85,7 +86,7 @@ export default function SignIn() {
         disabled={signInState.isLoading}
         size="$5"
         mt="$5"
-        icon={signInState.isLoading ? <Spinner /> : null}
+        iconAfter={signInState.isLoading ? <Spinner /> : null}
         onPress={() => {
           let validated = true
 
@@ -103,31 +104,28 @@ export default function SignIn() {
             setPasswordError(null)
           }
 
-          validated && signIn(email, password)
+          validated && signIn(email, password).then(() => {
+            console.log("sign in success (callback")
+          })
         }}
       >
         Sign In
       </Button>
 
       <XStack jc="center" mt="$4">
-
         <Text col="$gray10">
           Don't have an account?
         </Text>
-
         <Text
           ml="$1"
           col="$gray10"
           fow="700"
-          textDecorationLine="underline"
           onPress={() => router.push("/signup")}
-          pressStyle={{ col: "$gray8" }}
+          pressStyle={{ col: "$blue8" }}
         >
           Sign up
         </Text>
-
       </XStack>
-
     </YStack>
   )
 }

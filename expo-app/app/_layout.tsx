@@ -5,7 +5,8 @@ import { Suspense, useEffect } from "react"
 import { TamaguiProvider, Text, Theme } from "tamagui"
 
 import { MySafeAreaView } from "../components/MySafeAreaView"
-import AuthProvider from "../providers/auth"
+import { EventProvider } from "../data"
+import { AuthProvider } from "../lib/auth"
 import config from "../tamagui.config"
 
 SplashScreen.preventAutoHideAsync()
@@ -29,12 +30,14 @@ export default function Layout() {
           <ThemeProvider value={DefaultTheme}>
             <MySafeAreaView>
               <AuthProvider>
-                <Stack
-                  screenOptions={{
-                    statusBarTranslucent: true,
-                    statusBarStyle: "dark",
-                    headerShown: false,
-                  }} />
+                <EventProvider>
+                  <Stack
+                    screenOptions={{
+                      statusBarTranslucent: true,
+                      statusBarStyle: "dark",
+                      headerShown: false,
+                    }} />
+                </EventProvider>
               </AuthProvider>
             </MySafeAreaView>
           </ThemeProvider>

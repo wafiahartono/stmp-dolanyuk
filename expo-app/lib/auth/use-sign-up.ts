@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useCallback, useState } from "react"
 
-import { post } from "../api"
+import { httpPost } from "../api"
 import { Task, completedState, initialState } from "../task"
 import { useAuthDispatch } from "./AuthContext"
 
@@ -14,7 +14,7 @@ export function useSignUp(): [Task, (email: string, password: string, name: stri
     setState({ ...initialState, isLoading: true })
 
     try {
-      const { user, token } = await post("register", { email, password, name })
+      const { user, token } = await httpPost("register", { email, password, name })
 
       user.token = user
 

@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router"
-import { useEffect, useId, useState } from "react"
+import { useCallback, useId, useState } from "react"
+import { ToastAndroid } from "react-native"
 import {
   Button,
   H1,
@@ -12,14 +13,9 @@ import {
 } from "tamagui"
 
 import { InvalidUserError } from "../lib/api"
-import { useAuth, useSignIn } from "../lib/auth"
+import { useSignIn } from "../lib/auth"
 
 export default function SignIn() {
-  const router = useRouter()
-
-  const { user } = useAuth()
-  const [signInState, signIn] = useSignIn()
-
   const emailId = useId()
   const passwordId = useId()
 
@@ -29,20 +25,37 @@ export default function SignIn() {
   const [password, setPassword] = useState("")
   const [passwordError, setPasswordError] = useState<string | null>(null)
 
-  useEffect(() => {
-    if (!signInState.isComplete) return
+  const router = useRouter()
 
-    if (signInState.isSuccessful) {
-      console.log("sign in success (useEffect")
-      router.replace("/events")
+  const [signInState, signIn] = useSignIn()
 
-    } else if (signInState.error instanceof InvalidUserError) {
-      setEmailError("These credentials do not match our records.")
+  const handleSignIn = useCallback(() => {
+    let validated = true
 
+    if (email.trim().length === 0) {
+      setEmailError("The email address field is required.")
+      validated = false
     } else {
-      setEmailError("An unexpected error has occurred.")
+      setEmailError(null)
     }
-  }, [signInState])
+
+    if (password.length === 0) {
+      setPasswordError("The password field is required.")
+      validated = false
+    } else {
+      setPasswordError(null)
+    }
+
+    validated && signIn(email, password)
+      .then(() => router.replace("/events"))
+      .catch(error => {
+        if (error instanceof InvalidUserError) {
+          setEmailError("These credentials do not match our records.")
+        } else {
+          ToastAndroid.show("An unexpected error has occurred.", 3000)
+        }
+      })
+  }, [email, password])
 
   return (
     <YStack f={1} jc="center" p="$4" backgroundColor="$backgroundStrong">
@@ -56,13 +69,13 @@ export default function SignIn() {
 
       <Input
         id={emailId}
-        size="$5"
         theme={emailError ? "red" : "Input"}
+        size="$5"
         placeholder="Enter your email address"
         autoCapitalize="none"
         inputMode="email"
         value={email}
-        onChangeText={text => setEmail(text)} />
+        onChangeText={setEmail} />
 
       {emailError && <Text mt="$2" col="$red10">{emailError}</Text>}
 
@@ -72,13 +85,13 @@ export default function SignIn() {
 
       <Input
         id={passwordId}
-        size="$5"
         theme={passwordError ? "red" : "Input"}
+        size="$5"
         placeholder="Enter your password"
         autoCapitalize="none"
         secureTextEntry
         value={password}
-        onChangeText={text => setPassword(text)} />
+        onChangeText={setPassword} />
 
       {passwordError && <Text mt="$2" col="$red10">{passwordError}</Text>}
 
@@ -87,27 +100,7 @@ export default function SignIn() {
         size="$5"
         mt="$5"
         iconAfter={signInState.isLoading ? <Spinner /> : null}
-        onPress={() => {
-          let validated = true
-
-          if (email.trim().length === 0) {
-            setEmailError("The email address field is required.")
-            validated = false
-          } else {
-            setEmailError(null)
-          }
-
-          if (password.length === 0) {
-            setPasswordError("The password field is required.")
-            validated = false
-          } else {
-            setPasswordError(null)
-          }
-
-          validated && signIn(email, password).then(() => {
-            console.log("sign in success (callback")
-          })
-        }}
+        onPress={handleSignIn}
       >
         Sign In
       </Button>

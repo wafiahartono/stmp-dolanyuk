@@ -4,7 +4,7 @@ import { ValidationError } from "./ValidationError"
 import { buildFormData } from "./build-form-data"
 import { serverUrl } from "./configs"
 
-export async function post(path: string, data: object, token?: string) {
+export async function httpPost(path: string, data: object, token?: string) {
   const response = await fetch(`${serverUrl}/${path}.php`, {
     method: "post",
     headers: token ? { Authorization: `Bearer ${token}` } : undefined,

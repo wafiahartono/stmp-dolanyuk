@@ -5,30 +5,43 @@ import { useAuth } from "../lib/auth"
 import { Task, completedState, initialState } from "../lib/task"
 import { Event } from "./Event"
 import { useEventDispatch } from "./EventContext"
+import { Game } from "./Game"
 
-export function useJoinEvent(): [(event: Event) => Promise<void>, Task] {
+type StoreEventParams = {
+  title: string
+  game: Game
+  datetime: Date
+  venue: string
+  address: string
+}
+
+export function useStoreEvent(): [(params: StoreEventParams) => Promise<Event>, Task] {
   const [state, setState] = useState<Task>(initialState)
 
   const { user } = useAuth()
 
   const dispatch = useEventDispatch()
 
-  const fun = useCallback(async (event: Event) => {
+  const fun = useCallback(async (params: StoreEventParams) => {
     setState({ ...initialState, isLoading: true })
 
     try {
-      await httpPost("participants", { event: event.id }, user!.token)
+      const body = {
+        title: params.title,
+        game: params.game.id,
+        datetime: params.datetime.toUTCString(),
+        location: `${params.venue};${params.address}`,
+      }
 
-      dispatch({
-        type: "update",
-        payload: {
-          ...event,
-          participant: true,
-          participants: event.participants + 1,
-        },
-      })
+      const event = await httpPost("events", body, user!.token)
+
+      event.datetime = new Date(event.datetime)
+
+      dispatch({ type: "add", payload: event })
 
       setState({ ...completedState, isSuccessful: true })
+
+      return event
     } catch (error: any) {
       setState({ ...completedState, isSuccessful: false, error })
 

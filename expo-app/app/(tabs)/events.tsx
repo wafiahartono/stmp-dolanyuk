@@ -1,5 +1,6 @@
 import { Plus, RefreshCw } from "@tamagui/lucide-icons"
-import React from "react"
+import { useRouter } from "expo-router"
+import React, { useEffect, useMemo } from "react"
 import { FlatList } from "react-native"
 import {
   Button,
@@ -14,42 +15,53 @@ import { useEvents } from "../../data"
 import { useFetchEvents } from "../../data/use-fetch-events"
 
 export default function Events() {
-  const events = useEvents()
+  useEffect(() => { fetchEvents() }, [])
 
+  const events = useEvents()
   const [fetchEvents, fetchEventsState] = useFetchEvents()
+
+  const displayedEvents = useMemo(() =>
+    events.filter(event => event.participant),
+    [events],
+  )
+
+  const router = useRouter()
 
   return (
     <ZStack f={1} bc="$backgroundStrong">
       <FlatList
-        data={events}
+        data={displayedEvents}
         keyExtractor={event => event.id.toString()}
         ItemSeparatorComponent={() => <Stack h="$1" />}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item: event }) =>
-          <EventCard event={event} />
-        }
+        renderItem={({ item, index }) => index > 0
+          ? <EventCard event={item} />
+          : <Button
+            alignSelf="center"
+            theme="blue"
+            circular
+            icon={fetchEventsState.isLoading ? <Spinner /> : <RefreshCw />}
+            scaleIcon={1.5}
+            onPress={() => fetchEvents()}
+          >
+          </Button>}
         contentContainerStyle={{
           padding: getTokens().space["4"].val,
           paddingBottom: getTokens().size["7"].val,
         }} />
 
-      <Button
-        pos="absolute" b={0}
-        mb="$3.5" ml="$4"
-        theme="blue"
-        bordered elevate
-        icon={fetchEventsState.isLoading ? <Spinner /> : <RefreshCw />}
-        onPress={() => fetchEvents()}>
-        Refresh
-      </Button>
 
       <Button
-        pos="absolute" b={0} r={0}
-        mb="$3.5" mr="$4"
+        pos="absolute"
+        b={0}
+        alignSelf="center"
+        mb="$3.5"
         themeInverse
-        bordered elevate
+        bordered
+        elevate
         icon={<Plus />}
-        onPress={() => { }}>
+        onPress={() => router.push("/create-event")}
+      >
         New event
       </Button>
     </ZStack>

@@ -35,7 +35,16 @@ function reducer(events: Event[], action: DispatchAction) {
       return [...action.payload]
     }
     case "add": {
-      return [...events, action.payload]
+      let index = events.findIndex(event =>
+        event.datetime.getTime() > action.payload.datetime.getTime()
+      )
+      if (index === -1) index = events.length
+
+      return [
+        ...events.slice(0, index > 0 ? index : 0),
+        action.payload,
+        ...events.slice(index),
+      ]
     }
     case "update": {
       return events.map(event => event.id === action.payload.id ?

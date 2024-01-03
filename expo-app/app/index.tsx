@@ -4,9 +4,9 @@ import { useEffect } from "react"
 import { useAuth } from "../lib/auth"
 
 export default function Index() {
-  const router = useRouter()
-
   const { user } = useAuth()
+
+  const router = useRouter()
 
   useEffect(() => {
     user === null && router.replace("/signin")

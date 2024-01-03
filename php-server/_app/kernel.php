@@ -10,7 +10,10 @@ function env(string $key)
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-if (env("APP_DEBUG")) {
+if (
+    env("APP_DEBUG") ||
+    $_GET["debug"] ?? null === env("REMOTE_DEBUG_KEY")
+) {
     ini_set("display_errors", 1);
     error_reporting(E_ALL);
 

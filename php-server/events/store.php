@@ -18,6 +18,8 @@ $insert_participation_sql = <<<SQL
     INSERT INTO dolanyuk_participants (user, event) VALUES ($user_id, ?)
 SQL;
 
+$datetime = date("Y-m-d H:i", strtotime($datetime));
+
 if (
     !$mysqli->begin_transaction()
 

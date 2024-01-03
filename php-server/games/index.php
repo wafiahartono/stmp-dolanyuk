@@ -3,7 +3,7 @@
 require_once __DIR__ . "/../_app/kernel.php";
 
 $sql = <<<SQL
-    SELECT * FROM dolanyuk_games
+    SELECT * FROM dolanyuk_games ORDER BY name
 SQL;
 
 if (

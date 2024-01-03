@@ -30,7 +30,7 @@ $sql = <<<SQL
 
     FROM dolanyuk_events
 
-    JOIN dolanyuk_participants
+    LEFT JOIN dolanyuk_participants
         ON dolanyuk_participants.event = dolanyuk_events.id
 
     JOIN dolanyuk_games

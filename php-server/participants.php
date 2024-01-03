@@ -10,6 +10,9 @@ if ($method === "GET") {
 } else if ($method === "POST") {
     require __DIR__ . "/participants/store.php";
 
+} else if ($method === "DELETE") {
+    require __DIR__ . "/participants/destroy.php";
+
 } else {
     http_response_code(405);
     exit;

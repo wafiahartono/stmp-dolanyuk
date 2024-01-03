@@ -13,6 +13,12 @@ if (
     exit;
 }
 
-echo json_encode(
-    $result->fetch_all(MYSQLI_ASSOC)
-);
+while ($game = $result->fetch_object()) {
+    $game->minPlayers = $game->min_players;
+
+    unset($game->min_players);
+
+    $games[] = $game;
+}
+
+echo json_encode($games ?? []);

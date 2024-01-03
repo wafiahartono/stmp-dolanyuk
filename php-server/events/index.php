@@ -16,7 +16,7 @@ $sql = <<<SQL
             SELECT COUNT(*)
             FROM dolanyuk_participants
             WHERE dolanyuk_participants.event = dolanyuk_events.id
-        ) AS players,
+        ) AS participants,
         (
             EXISTS (
                 SELECT *
@@ -71,11 +71,19 @@ if (
 
 while ($event = $result->fetch_object()) {
     $event->game = (object) [
+        "id" => $event->game,
         "name" => $event->name,
-        "min_players" => $event->min_players,
+        "minPlayers" => $event->min_players,
         "image" => $event->image,
     ];
-    $event->players = 1;
+
+    $location = explode(";", $event->location);
+
+    $event->location = (object) [
+        "place" => $location[0],
+        "address" => $location[1],
+    ];
+
     $event->participant = $event->participant === 1;
 
     unset($event->name, $event->min_players, $event->image);

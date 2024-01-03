@@ -44,7 +44,7 @@ export default function CreateEvent() {
   const [getGames] = useFetchGames()
   const [games, setGames] = useState<GameItem[]>([])
 
-  const [title, setTitle] = useState("Casual Game Night")
+  const [title, setTitle] = useState("")
   const [titleError, setTitleError] = useState<string | null>(null)
 
   const [game, setGame] = useState<Game | null>(null)
@@ -53,10 +53,10 @@ export default function CreateEvent() {
   const [datetime, setDatetime] = useState<Date | undefined>()
   const [datetimeError, setDatetimeError] = useState<string | null>(null)
 
-  const [venue, setVenue] = useState("Game Station")
+  const [venue, setVenue] = useState("")
   const [venueError, setVenueError] = useState<string | null>(null)
 
-  const [address, setAddress] = useState("Jl. Puncak No. 432, Bogor")
+  const [address, setAddress] = useState("")
   const [addressError, setAddressError] = useState<string | null>(null)
 
   const [storeEvent, storeEventState] = useStoreEvent()
@@ -114,6 +114,7 @@ export default function CreateEvent() {
   return <>
     <Stack.Screen
       options={{
+        statusBarColor: "white",
         headerShown: true,
         headerTitle: "Create event",
       }}

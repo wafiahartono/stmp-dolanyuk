@@ -21,8 +21,9 @@ function Component(props: DateTimeFieldProps) {
 
   const openDialog = useCallback(() => {
     DateTimePickerAndroid.open({
-      value: props.value ?? new Date(),
       mode: "date",
+      minimumDate: new Date,
+      value: props.value ?? new Date(),
       onChange: (e, date) => {
         if (e.type !== "set") return
 

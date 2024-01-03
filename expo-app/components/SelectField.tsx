@@ -44,7 +44,7 @@ function Component(props: SelectFieldProps) {
         bw="$0.5"
         boc={props.error ? theme.red6 : theme.color6}
         iconAfter={
-          props.items.length === 0
+          props.items.length === 0 && !props.error
             ? <Spinner />
             : <ChevronDown size="$1" color={props.error ? theme.red6.val : theme.color6.val} />
         }

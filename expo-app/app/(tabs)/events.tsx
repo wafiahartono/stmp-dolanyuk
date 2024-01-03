@@ -1,13 +1,12 @@
-import { Plus, RefreshCw } from "@tamagui/lucide-icons"
+import { Plus } from "@tamagui/lucide-icons"
 import { useRouter } from "expo-router"
 import React, { useEffect, useMemo } from "react"
 import { FlatList } from "react-native"
 import {
   Button,
-  Spinner,
   Stack,
   ZStack,
-  getTokens,
+  getTokens
 } from "tamagui"
 
 import { EventCard } from "../../components/EventCard"
@@ -18,12 +17,12 @@ export default function Events() {
   useEffect(() => { fetchEvents() }, [])
 
   const events = useEvents()
-  const [fetchEvents, fetchEventsState] = useFetchEvents()
+  const [fetchEvents] = useFetchEvents()
 
-  const displayedEvents = useMemo(() =>
-    events.filter(event => event.participant),
-    [events],
-  )
+  const displayedEvents = useMemo(() => {
+    const now = new Date().getTime()
+    return events.filter(event => event.participant && event.datetime.getTime() >= now)
+  }, [events])
 
   const router = useRouter()
 
@@ -34,22 +33,11 @@ export default function Events() {
         keyExtractor={event => event.id.toString()}
         ItemSeparatorComponent={() => <Stack h="$1" />}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item, index }) => index > 0
-          ? <EventCard event={item} />
-          : <Button
-            alignSelf="center"
-            theme="blue"
-            circular
-            icon={fetchEventsState.isLoading ? <Spinner /> : <RefreshCw />}
-            scaleIcon={1.5}
-            onPress={() => fetchEvents()}
-          >
-          </Button>}
+        renderItem={({ item }) => <EventCard event={item} />}
         contentContainerStyle={{
           padding: getTokens().space["4"].val,
           paddingBottom: getTokens().size["7"].val,
         }} />
-
 
       <Button
         pos="absolute"
@@ -57,9 +45,7 @@ export default function Events() {
         alignSelf="center"
         mb="$3.5"
         themeInverse
-        bordered
-        elevate
-        icon={<Plus />}
+        icon={<Plus size="$1" />}
         onPress={() => router.push("/create-event")}
       >
         New event

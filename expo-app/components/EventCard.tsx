@@ -127,7 +127,6 @@ function Component({ event }: EventCardProps) {
 
           {event.participant
             ? <Button
-              theme="purple"
               br="$4"
               onPress={() => { }}
             >

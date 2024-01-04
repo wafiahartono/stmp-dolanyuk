@@ -16,7 +16,7 @@ export function useSignUp(): [Task, (email: string, password: string, name: stri
     try {
       const { user, token } = await httpPost("register", { email, password, name })
 
-      user.token = user
+      user.token = token
 
       await AsyncStorage.setItem("auth", JSON.stringify({ user, token }))
 

@@ -41,14 +41,14 @@ function Component({ chat }: { chat: Chat }) {
     >
       {!chat.user.self &&
         <Avatar size="$2" alignSelf="flex-end" circular>
-          <Avatar.Image src={`https://i.pravatar.cc/150?u=${chat.user.name}`} />
+          <Avatar.Image src={chat.user.picture ?? `https://i.pravatar.cc/150?u=${chat.user.name}`} />
         </Avatar>}
 
       <YStack>
         {!chat.user.self &&
           <SizableText
             size="$1"
-            style={{ color: nameTextColors[nameTextColors.length % chat.user.id] }}
+            style={{ color: nameTextColors[nameTextColors.length % chat.user.name.length] }}
           >
             {chat.user.name}
           </SizableText>

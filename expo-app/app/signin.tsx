@@ -52,7 +52,7 @@ export default function SignIn() {
         if (error instanceof InvalidUserError) {
           setEmailError("These credentials do not match our records.")
         } else {
-          ToastAndroid.show("An unexpected error has occurred.", 3000)
+          ToastAndroid.show("An unexpected error has occurred.", ToastAndroid.LONG)
         }
       })
   }, [email, password])

@@ -1,4 +1,5 @@
 import { ArrowLeftSquare, Clock, Map } from "@tamagui/lucide-icons"
+import { useRouter } from "expo-router"
 import React, { memo, useCallback } from "react"
 import { Alert, ToastAndroid } from "react-native"
 import {
@@ -20,11 +21,17 @@ type EventCardProps = {
   event: Event
 }
 
-export const EventCard = memo(Component)
+export const EventCard = memo(
+  Component,
+  (a, b) =>
+    a.event.participant === b.event.participant &&
+    a.event.participants === b.event.participants
+)
 
 function Component({ event }: EventCardProps) {
+  const router = useRouter()
+
   const [joinEvent, joinEventState] = useJoinEvent()
-  const [leaveEvent, leaveEventState] = useLeaveEvent()
 
   const handleJoin = useCallback(() => {
     Alert.alert(
@@ -45,6 +52,8 @@ function Component({ event }: EventCardProps) {
       ],
     )
   }, [event])
+
+  const [leaveEvent, leaveEventState] = useLeaveEvent()
 
   const handleLeave = useCallback(() => {
     Alert.alert(
@@ -117,18 +126,18 @@ function Component({ event }: EventCardProps) {
         pressStyle={{ bc: "$blue4" }}
       >
         <XStack f={1} ai="center" jc="space-between">
-          <Text>
+          <SizableText>
             {event.participants < event.game.minPlayers
               ? `Need ${event.game.minPlayers - event.participants} more players`
               : event.participant
                 ? `You and ${event.participants - 1} other players joined`
                 : `Join the other ${event.participants} players`}
-          </Text>
+          </SizableText>
 
           {event.participant
             ? <Button
               br="$4"
-              onPress={() => { }}
+              onPress={() => router.push({ pathname: `/chats/${event.id}`, params: { title: event.title } })}
             >
               Open chat
             </Button>

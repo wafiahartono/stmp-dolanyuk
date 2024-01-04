@@ -83,7 +83,7 @@ export default function SignUp() {
         if (error instanceof ValidationError) {
           error.errors["email"] && setEmailError(error.errors["email"])
         } else {
-          ToastAndroid.show("An unexpected error has occurred.", 3000)
+          ToastAndroid.show("An unexpected error has occurred.", ToastAndroid.LONG)
         }
       })
   }, [name, email, password, passwordConfirm])

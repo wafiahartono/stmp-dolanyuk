@@ -4,11 +4,14 @@ import { FlatList } from "react-native"
 import {
   Button,
   Circle,
+  Image,
   Input,
+  SizableText,
   Spinner,
   Stack,
   XStack,
   YStack,
+  ZStack,
   getTokens,
   useTheme,
 } from "tamagui"
@@ -20,13 +23,13 @@ import { useFetchEvents } from "../../data/use-fetch-events"
 export default function Search() {
   const theme = useTheme()
 
-  const events = useEvents()
+  const eventsStore = useEvents()
   const [fetchEvents, fetchEventsState] = useFetchEvents()
 
   const [query, setQuery] = useState("")
 
-  const displayedEvents = useMemo(() => {
-    return events.filter(event => {
+  const events = useMemo(() => {
+    return eventsStore.filter(event => {
       const now = new Date().getTime()
       const q = query.toLowerCase()
 
@@ -36,13 +39,14 @@ export default function Search() {
           || event.game.name.toLowerCase().includes(q)
           || event.location.address.toLowerCase().includes(q))
     })
-  }, [events, query])
+  }, [eventsStore, query])
 
   return (
     <YStack f={1} bc="$backgroundStrong">
       <XStack p="$4" bc="$backgroundStrong" space="$4">
-        <YStack f={1} jc="center">
+        <XStack f={1} ai="center">
           <Input
+            f={1}
             pl="$8"
             placeholder="Search fun activities..."
             value={query}
@@ -68,20 +72,46 @@ export default function Search() {
             >
               <X size="$1" color={theme.color6.val} />
             </Circle>}
-        </YStack>
+        </XStack>
       </XStack>
 
-      <FlatList
-        data={displayedEvents}
-        keyExtractor={event => event.id.toString()}
-        ItemSeparatorComponent={() => <Stack h="$1" />}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => <EventCard event={item} />}
-        contentContainerStyle={{
-          paddingTop: 0,
-          paddingBottom: getTokens().size["7"].val,
-          paddingHorizontal: getTokens().space["4"].val,
-        }} />
+      <ZStack f={1}>
+        <YStack f={1} ai="center" jc="center">
+          {fetchEventsState.isLoading &&
+            <SizableText>
+              Loading your parties...
+            </SizableText>
+          }
+
+          {fetchEventsState.isComplete && events.length === 0 &&
+            <>
+              <Image
+                width={getTokens().size["20"].val}
+                height={getTokens().size["20"].val}
+                source={require("../../assets/connectivity.png")} />
+
+              <SizableText mt="$-4">
+                Hmmm this is unexpected.
+              </SizableText>
+            </>
+          }
+        </YStack>
+
+        {useMemo(() =>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingTop: 0,
+              paddingBottom: getTokens().size["7"].val,
+              paddingHorizontal: getTokens().space["4"].val,
+            }}
+            data={events}
+            keyExtractor={event => event.id.toString()}
+            renderItem={({ item }) => <EventCard event={item} />}
+            ItemSeparatorComponent={() => <Stack h="$1" />} />,
+          [events],
+        )}
+      </ZStack>
 
       <Button
         theme="blue"

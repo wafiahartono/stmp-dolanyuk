@@ -26,11 +26,21 @@ export default function ChatsScreen() {
   const [fetchChats, fetchChatsState] = useFetchChats()
 
   useEffect(() => {
+    let ignore = false
+
     fetchChats(Number.parseInt(params.chats as string))
-      .then(chats => setChats(chats.reverse()))
+      .then(chats => {
+        if (ignore) return
+
+        setChats(chats.reverse())
+      })
       .catch(() => {
+        if (ignore) return
+
         ToastAndroid.show("An unexpected error has occurred.", ToastAndroid.LONG)
       })
+
+    return () => { ignore = true }
   }, [])
 
   const [message, setMessage] = useState("")

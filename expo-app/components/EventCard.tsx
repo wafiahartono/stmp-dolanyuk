@@ -16,17 +16,16 @@ import {
 import { Event, useJoinEvent, useLeaveEvent } from "../data"
 
 type EventCardProps = {
-  event: Event
+  event: Event,
+  onOpenPlayersSheet?: (event: Event) => void,
 }
 
 export const EventCard = memo(
   Component,
-  (a, b) =>
-    a.event.participant === b.event.participant &&
-    a.event.participants === b.event.participants
+  (a, b) => a.event.participants === b.event.participants
 )
 
-function Component({ event }: EventCardProps) {
+function Component({ event, onOpenPlayersSheet }: EventCardProps) {
   const router = useRouter()
 
   const [joinEvent, joinEventState] = useJoinEvent()
@@ -121,7 +120,8 @@ function Component({ event }: EventCardProps) {
         paddingVertical="$3"
         paddingHorizontal="$4"
         bc="$blue2"
-        pressStyle={{ bc: "$blue4" }}
+        pressStyle={onOpenPlayersSheet ? { bc: "$blue4" } : {}}
+        onPress={() => onOpenPlayersSheet && onOpenPlayersSheet(event)}
       >
         <XStack f={1} ai="center" jc="space-between">
           <SizableText>

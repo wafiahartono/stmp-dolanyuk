@@ -1,11 +1,13 @@
-import { HttpError } from "./HttpError"
-import { InvalidUserError } from "./InvalidUserError"
-import { ValidationError } from "./ValidationError"
-import { buildFormData } from "./build-form-data"
-import { serverUrl } from "./configs"
+import configs from "./configs"
+import {
+  HttpError,
+  InvalidUserError,
+  ValidationError,
+  buildFormData,
+} from "./index"
 
 export async function httpPost(path: string, data: object, token?: string) {
-  const response = await fetch(`${serverUrl}/${path}.php`, {
+  const response = await fetch(`${configs.apiUrl}/${path}.php`, {
     method: "post",
     headers: token ? { Authorization: `Bearer ${token}` } : undefined,
     body: buildFormData(data),

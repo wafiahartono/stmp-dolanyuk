@@ -15,10 +15,8 @@ import {
   useTheme,
 } from "tamagui"
 
-import { ChatBuble } from "../../components/ChatBubble"
-import { Chat } from "../../data/Chat"
-import { useFetchChats } from "../../data/use-fetch-chats"
-import { useSendChat } from "../../data/use-send-chat"
+import { ChatBuble } from "../../components"
+import { Chat, useFetchChats, useSendChat } from "../../data"
 
 export default function ChatsScreen() {
   const theme = useTheme()

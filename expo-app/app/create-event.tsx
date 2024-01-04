@@ -8,12 +8,8 @@ import {
   YStack
 } from "tamagui"
 
-import { DateTimeField } from "../components/DateTimeField"
-import { InputField } from "../components/InputField"
-import { Item, SelectField } from "../components/SelectField"
-import { Game } from "../data"
-import { useFetchGames } from "../data/use-fetch-games"
-import { useStoreEvent } from "../data/use-store-event"
+import { DateTimeField, InputField, Item, SelectField } from "../components"
+import { Game, useFetchGames, useStoreEvent } from "../data"
 
 type GameItem = Game & Item
 

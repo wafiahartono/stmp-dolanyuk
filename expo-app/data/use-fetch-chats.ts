@@ -3,7 +3,7 @@ import { useCallback, useState } from "react"
 import { httpGet } from "../lib/api"
 import { useAuth } from "../lib/auth"
 import { Task, completedState, initialState } from "../lib/task"
-import { Chat } from "./Chat"
+import { Chat } from "./index"
 
 export function useFetchChats(): [(eventId: number) => Promise<Chat[]>, Task] {
   const [state, setState] = useState<Task>(initialState)

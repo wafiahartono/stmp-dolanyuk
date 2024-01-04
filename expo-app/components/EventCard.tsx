@@ -13,9 +13,7 @@ import {
   YStack,
 } from "tamagui"
 
-import { Event } from "../data"
-import { useJoinEvent } from "../data/use-join-event"
-import { useLeaveEvent } from "../data/use-leave-event"
+import { Event, useJoinEvent, useLeaveEvent } from "../data"
 
 type EventCardProps = {
   event: Event

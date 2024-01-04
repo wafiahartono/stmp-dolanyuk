@@ -4,7 +4,7 @@ import { SplashScreen, Stack } from "expo-router"
 import { Suspense, useEffect } from "react"
 import { TamaguiProvider, Text, Theme } from "tamagui"
 
-import { MySafeAreaView } from "../components/MySafeAreaView"
+import { MySafeAreaView } from "../components"
 import { EventProvider } from "../data"
 import { AuthProvider } from "../lib/auth"
 import config from "../tamagui.config"

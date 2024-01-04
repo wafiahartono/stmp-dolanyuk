@@ -3,8 +3,7 @@ import { useCallback, useState } from "react"
 import { httpPost } from "../lib/api"
 import { useAuth } from "../lib/auth"
 import { Task, completedState, initialState } from "../lib/task"
-import { Event } from "./Event"
-import { useEventDispatch } from "./EventContext"
+import { Event, useEventDispatch } from "./index"
 
 export function useJoinEvent(): [(event: Event) => Promise<void>, Task] {
   const [state, setState] = useState<Task>(initialState)

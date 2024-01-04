@@ -1,10 +1,8 @@
-import { HttpError } from "./HttpError"
-import { InvalidUserError } from "./InvalidUserError"
-import { buildSearchParams } from "./build-search-params"
-import { serverUrl } from "./configs"
+import configs from "./configs"
+import { HttpError, InvalidUserError, buildSearchParams } from "./index"
 
 export async function httpDelete(path: string, params: object = {}, token?: string) {
-  const response = await fetch(`${serverUrl}/${path}.php?${buildSearchParams(params)}`, {
+  const response = await fetch(`${configs.apiUrl}/${path}.php?${buildSearchParams(params)}`, {
     method: "delete",
     headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   })

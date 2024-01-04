@@ -3,7 +3,7 @@ import { memo } from "react"
 import { Avatar, Paragraph, SizableText, XStack, YStack } from "tamagui"
 import { amber, blue, cyan, emerald, fuchsia, green, indigo, lime, orange, pink, purple, red, rose, sky, teal, violet, yellow } from "../utils/colors"
 
-import { Chat } from "../data/Chat"
+import { Chat } from "../data"
 
 const nameTextColors = [
   red[800],

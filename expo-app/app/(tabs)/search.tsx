@@ -48,6 +48,7 @@ export default function Search() {
             f={1}
             pl="$8"
             placeholder="Search fun activities..."
+            inputMode="search"
             value={query}
             onChangeText={setQuery} />
 

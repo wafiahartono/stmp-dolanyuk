@@ -5,16 +5,22 @@ import { httpPost } from "../api"
 import { Task, completedState, initialState } from "../task"
 import { useAuthDispatch } from "./index"
 
-export function useSignUp(): [Task, (email: string, password: string, name: string) => Promise<void>] {
+export type UpdateProfileParams = {
+  current_password?: string
+  new_password?: string
+  name?: string
+}
+
+export function useUpdateProfile(): [Task, (params: UpdateProfileParams) => Promise<void>] {
   const [state, setState] = useState<Task>(initialState)
 
   const dispatch = useAuthDispatch()
 
-  const fun = useCallback(async (email: string, password: string, name: string) => {
+  const fun = useCallback(async (params: UpdateProfileParams) => {
     setState({ ...initialState, isLoading: true })
 
     try {
-      const { user, token } = await httpPost("register", { email, password, name })
+      const { user, token } = await httpPost("users", params)
 
       user.token = token
 

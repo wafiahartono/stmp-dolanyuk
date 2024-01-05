@@ -13,8 +13,8 @@ import {
   YStack,
 } from "tamagui"
 
-import { ValidationError } from "../lib/api"
-import { useSignUp } from "../lib/auth"
+import { ValidationError } from "../lib/api/ValidationError"
+import { useSignUp } from "../lib/auth/use-sign-up"
 
 export default function SignUp() {
   const nameId = useId()

@@ -1,8 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useCallback, useState } from "react"
 
-import { httpPost } from "../api"
-import { Task, completedState, initialState } from "../task"
+import { httpPost } from "../api/http-post"
+import { Task } from "../task/Task"
+import { completedState, initialState } from "../task/state"
 import { useAuthDispatch } from "./AuthContext"
 
 export function useSignIn(): [Task, (email: string, password: string) => Promise<void>] {

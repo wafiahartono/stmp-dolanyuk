@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react"
 
-import { httpPost } from "../lib/api"
-import { useAuth } from "../lib/auth"
-import { Task, completedState, initialState } from "../lib/task"
+import { httpPost } from "../lib/api/http-post"
+import { useAuth } from "../lib/auth/AuthContext"
+import { Task } from "../lib/task/Task"
+import { completedState, initialState } from "../lib/task/state"
 import { Event } from "./Event"
 import { useEventDispatch } from "./EventContext"
 import { Game } from "./Game"

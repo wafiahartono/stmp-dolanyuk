@@ -16,8 +16,9 @@ import {
   useTheme,
 } from "tamagui"
 
-import { EventCard } from "../../components"
-import { useEvents, useFetchEvents } from "../../data"
+import { EventCard } from "../../components/EventCard"
+import { useEvents } from "../../data/EventContext"
+import { useFetchEvents } from "../../data/use-fetch-events"
 
 export default function Search() {
   const theme = useTheme()

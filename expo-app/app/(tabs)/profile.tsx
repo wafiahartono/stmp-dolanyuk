@@ -3,9 +3,12 @@ import { useCallback, useState } from "react"
 import { ToastAndroid } from "react-native"
 import { Avatar, Button, H4, SizableText, Spinner, YStack } from "tamagui"
 
-import { InputField } from "../../components"
-import { InvalidUserError } from "../../lib/api"
-import { UpdateProfileParams, User, useAuth, useSignOut, useUpdateProfile } from "../../lib/auth"
+import { InputField } from "../../components/InputField"
+import { InvalidUserError } from "../../lib/api/InvalidUserError"
+import { useAuth } from "../../lib/auth/AuthContext"
+import { User } from "../../lib/auth/User"
+import { useSignOut } from "../../lib/auth/use-sign-out"
+import { UpdateProfileParams, useUpdateProfile } from "../../lib/auth/use-update-profile"
 
 export default function Profile() {
   const router = useRouter()

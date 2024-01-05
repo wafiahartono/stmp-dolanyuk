@@ -12,8 +12,8 @@ import {
   YStack,
 } from "tamagui"
 
-import { InvalidUserError } from "../lib/api"
-import { useSignIn } from "../lib/auth"
+import { InvalidUserError } from "../lib/api/InvalidUserError"
+import { useSignIn } from "../lib/auth/use-sign-in"
 
 export default function SignIn() {
   const emailId = useId()

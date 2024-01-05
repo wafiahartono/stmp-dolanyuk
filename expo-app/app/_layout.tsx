@@ -4,9 +4,9 @@ import { SplashScreen, Stack } from "expo-router"
 import { Suspense, useEffect } from "react"
 import { TamaguiProvider, Text, Theme } from "tamagui"
 
-import { MySafeAreaView } from "../components"
-import { EventProvider } from "../data"
-import { AuthProvider } from "../lib/auth"
+import { MySafeAreaView } from "../components/MySafeAreaView"
+import { EventProvider } from "../data/EventContext"
+import { AuthProvider } from "../lib/auth/AuthContext"
 import config from "../tamagui.config"
 
 SplashScreen.preventAutoHideAsync()

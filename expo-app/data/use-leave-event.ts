@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react"
 
 import { httpDelete } from "../lib/api/http-delete"
-import { useAuth } from "../lib/auth"
-import { Task, completedState, initialState } from "../lib/task"
+import { useAuth } from "../lib/auth/AuthContext"
+import { Task } from "../lib/task/Task"
+import { completedState, initialState } from "../lib/task/state"
 import { Event } from "./Event"
 import { useEventDispatch } from "./EventContext"
 

@@ -12,8 +12,11 @@ import {
   getTokens,
 } from "tamagui"
 
-import { EventCard, PlayersSheet } from "../../components"
-import { Event, useEvents, useFetchEvents } from "../../data"
+import { EventCard } from "../../components/EventCard"
+import { PlayersSheet } from "../../components/PlayersSheet"
+import { Event } from "../../data/Event"
+import { useEvents } from "../../data/EventContext"
+import { useFetchEvents } from "../../data/use-fetch-events"
 
 export default function Events() {
   useEffect(() => { fetchEvents() }, [])

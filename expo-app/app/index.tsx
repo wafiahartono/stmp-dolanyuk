@@ -1,7 +1,7 @@
 import { Redirect, useRouter } from "expo-router"
 import { useEffect } from "react"
 
-import { useAuth } from "../lib/auth"
+import { useAuth } from "../lib/auth/AuthContext"
 
 export default function Index() {
   const { user } = useAuth()

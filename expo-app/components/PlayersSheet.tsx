@@ -2,7 +2,9 @@ import React, { memo, useEffect, useState } from "react"
 import { ToastAndroid } from "react-native"
 import { Avatar, H4, Label, ListItem, Separator, Sheet, Unspaced, YGroup } from "tamagui"
 
-import { Event, Player, useFetchPlayers } from "../data"
+import { Event } from "../data/Event"
+import { Player } from "../data/Player"
+import { useFetchPlayers } from "../data/use-fetch-players"
 
 type PlayersSheetProps = {
   event: Event | null,

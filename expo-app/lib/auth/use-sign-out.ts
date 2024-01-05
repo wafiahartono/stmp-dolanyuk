@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useCallback } from "react"
 
-import { useEventDispatch } from "../../data"
+import { useEventDispatch } from "../../data/EventContext"
 import { useAuthDispatch } from "./AuthContext"
 
 export function useSignOut(): () => Promise<void> {

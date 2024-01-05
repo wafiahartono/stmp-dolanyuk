@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react"
 
-import { httpGet } from "../lib/api"
-import { useAuth } from "../lib/auth"
-import { Task, completedState, initialState } from "../lib/task"
+import { httpGet } from "../lib/api/http-get"
+import { useAuth } from "../lib/auth/AuthContext"
+import { Task } from "../lib/task/Task"
+import { completedState, initialState } from "../lib/task/state"
 import { Player } from "./Player"
 
 export function useFetchPlayers(): [(eventId: number) => Promise<Player[]>, Task] {

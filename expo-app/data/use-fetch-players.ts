@@ -3,7 +3,7 @@ import { useCallback, useState } from "react"
 import { httpGet } from "../lib/api"
 import { useAuth } from "../lib/auth"
 import { Task, completedState, initialState } from "../lib/task"
-import { Player } from "./index"
+import { Player } from "./Player"
 
 export function useFetchPlayers(): [(eventId: number) => Promise<Player[]>, Task] {
   const [state, setState] = useState<Task>(initialState)

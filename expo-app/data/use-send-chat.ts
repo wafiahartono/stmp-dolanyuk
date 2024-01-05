@@ -3,7 +3,7 @@ import { useCallback, useState } from "react"
 import { httpPost } from "../lib/api"
 import { useAuth } from "../lib/auth"
 import { Task, completedState, initialState } from "../lib/task"
-import { Chat } from "./index"
+import { Chat } from "./Chat"
 
 type SendChatParams = {
   eventId: number

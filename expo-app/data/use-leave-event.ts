@@ -3,7 +3,8 @@ import { useCallback, useState } from "react"
 import { httpDelete } from "../lib/api/http-delete"
 import { useAuth } from "../lib/auth"
 import { Task, completedState, initialState } from "../lib/task"
-import { Event, useEventDispatch } from "./index"
+import { Event } from "./Event"
+import { useEventDispatch } from "./EventContext"
 
 export function useLeaveEvent(): [(event: Event) => Promise<void>, Task] {
   const [state, setState] = useState<Task>(initialState)

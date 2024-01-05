@@ -1,7 +1,7 @@
 
 import React from "react"
 
-import { Event } from "./index"
+import { Event } from "./Event"
 
 export type DispatchAction =
   {

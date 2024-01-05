@@ -1,4 +1,4 @@
-import { Game } from "./index"
+import { Game } from "./Game"
 
 export type Event = {
   id: number

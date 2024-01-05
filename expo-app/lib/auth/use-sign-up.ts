@@ -3,7 +3,7 @@ import { useCallback, useState } from "react"
 
 import { httpPost } from "../api"
 import { Task, completedState, initialState } from "../task"
-import { useAuthDispatch } from "./index"
+import { useAuthDispatch } from "./AuthContext"
 
 export function useSignUp(): [Task, (email: string, password: string, name: string) => Promise<void>] {
   const [state, setState] = useState<Task>(initialState)

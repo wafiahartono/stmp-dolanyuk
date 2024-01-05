@@ -3,7 +3,9 @@ import { useCallback, useState } from "react"
 import { httpPost } from "../lib/api"
 import { useAuth } from "../lib/auth"
 import { Task, completedState, initialState } from "../lib/task"
-import { Event, Game, useEventDispatch } from "./index"
+import { Event } from "./Event"
+import { useEventDispatch } from "./EventContext"
+import { Game } from "./Game"
 
 type StoreEventParams = {
   title: string

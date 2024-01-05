@@ -9,24 +9,25 @@ $participant = request()->query("participant") === "true" ? 1 : 0;
 $sql = <<<SQL
     SELECT
         dolanyuk_events.*,
-        dolanyuk_games.name,
-        dolanyuk_games.min_players,
-        dolanyuk_games.image,
+        dolanyuk_games.name AS game_name,
+        dolanyuk_games.min_players AS game_min_players,
+        dolanyuk_games.image AS game_image,
         (
             SELECT COUNT(*)
             FROM dolanyuk_participants
             WHERE dolanyuk_participants.event = dolanyuk_events.id
-        ) AS participants,
+        )
+        AS participants,
         (
             EXISTS (
                 SELECT *
                 FROM dolanyuk_participants
                 WHERE
-                    dolanyuk_participants.event = dolanyuk_events.id
-                    AND
+                    dolanyuk_participants.event = dolanyuk_events.id AND
                     dolanyuk_participants.user = $user_id
             )
-        ) AS participant
+        )
+        AS participant
 
     FROM dolanyuk_events
 
@@ -72,9 +73,9 @@ if (
 while ($event = $result->fetch_object()) {
     $event->game = (object) [
         "id" => $event->game,
-        "name" => $event->name,
-        "minPlayers" => $event->min_players,
-        "image" => $event->image,
+        "name" => $event->game_name,
+        "minPlayers" => $event->game_min_players,
+        "image" => $event->game_image,
     ];
 
     $location = explode(";", $event->location);
@@ -86,7 +87,7 @@ while ($event = $result->fetch_object()) {
 
     $event->participant = $event->participant === 1;
 
-    unset($event->name, $event->min_players, $event->image);
+    unset($event->game_name, $event->game_min_players, $event->game_image);
 
     $events[] = $event;
 }

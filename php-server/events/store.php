@@ -58,9 +58,9 @@ if (
 $select_event_sql = <<<SQL
     SELECT
         dolanyuk_events.*,
-        dolanyuk_games.name,
-        dolanyuk_games.min_players,
-        dolanyuk_games.image
+        dolanyuk_games.name AS game_name,
+        dolanyuk_games.min_players AS game_min_players,
+        dolanyuk_games.image AS game_image
 
     FROM dolanyuk_events
 
@@ -81,9 +81,9 @@ if (
 
 $event->game = (object) [
     "game" => $event->game,
-    "name" => $event->name,
-    "minPlayers" => $event->min_players,
-    "image" => $event->image,
+    "name" => $event->game_name,
+    "minPlayers" => $event->game_min_players,
+    "image" => $event->game_image,
 ];
 
 $location = explode(";", $event->location);
@@ -97,6 +97,6 @@ $event->participants = 1;
 
 $event->participant = true;
 
-unset($event->name, $event->min_players, $event->image);
+unset($event->game_name, $event->game_min_players, $event->game_image);
 
 echo json_encode($event, JSON_NUMERIC_CHECK);

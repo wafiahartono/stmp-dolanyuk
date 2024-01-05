@@ -6,9 +6,9 @@ $user_id = request()->user()->id;
 $event_id = (int) request()->input("event");
 $text = request()->input("text");
 
-$mysqli = mysqli();
-
 ensure_user_is_event_participant($user_id, $event_id);
+
+$mysqli = mysqli();
 
 $insert_chat_sql = <<<SQL
     INSERT INTO dolanyuk_chats (event, user, text) VALUES (?, $user_id, ?)

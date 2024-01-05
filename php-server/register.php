@@ -50,6 +50,10 @@ if (
     exit;
 }
 
+$user->picture = $user->picture
+    ? url("storage/$user->picture")
+    : null;
+
 unset($user->password);
 
 echo json_encode([

@@ -5,6 +5,8 @@ require_once __DIR__ . "/../_app/kernel.php";
 $user_id = request()->user()->id;
 $event_id = (int) request()->query("event");
 
+ensure_user_is_event_participant($user_id, $event_id);
+
 $sql = <<<SQL
     DELETE FROM dolanyuk_participants WHERE event = ? AND user = $user_id
 SQL;

@@ -22,6 +22,8 @@ if (
 
 class Request
 {
+    public ?User $user = null;
+
     public function method(): string
     {
         return $_SERVER["REQUEST_METHOD"];
@@ -42,15 +44,9 @@ class Request
         return $_GET[$key] ?? null;
     }
 
-    function user(): User
+    function user(): ?User
     {
-        global $user;
-
-        if (!isset($user)) {
-            $user = null;
-        }
-
-        return $user;
+        return $this->user;
     }
 }
 
@@ -62,6 +58,18 @@ class User
     {
         $this->id = $id;
     }
+}
+
+function request(): Request
+{
+    global $app;
+
+    return $app["request"];
+}
+
+function url(string $path): string
+{
+    return env("APP_URL") . $path;
 }
 
 function storage_put(string $path, array $file)
@@ -87,19 +95,6 @@ function storage_put(string $path, array $file)
 function storage_delete(string $path): bool
 {
     return unlink(__DIR__ . DIRECTORY_SEPARATOR . "storage" . DIRECTORY_SEPARATOR . $path);
-}
-
-function request(): Request
-{
-    global $request;
-
-    if (isset($request)) {
-        return $request;
-    }
-
-    $request = new Request;
-
-    return $request;
 }
 
 function mysqli(): mysqli
@@ -163,21 +158,10 @@ function ensure_user_is_event_participant(int $user_id, int $event_id)
     }
 }
 
-$route = pathinfo(
-    basename($_SERVER["REQUEST_URI"]),
-    PATHINFO_FILENAME,
-);
+$app["request"] = new Request;
 
-$guest_routes = ["auth", "register"];
-
-if (!in_array($route, $guest_routes)) {
-
-    if (!$authorization = $_SERVER["HTTP_AUTHORIZATION"] ?? null) {
-        http_response_code(401);
-        exit;
-    }
-
-    $token = explode(".", substr($authorization, 7));
+if ($bearer = $_SERVER["HTTP_AUTHORIZATION"]) {
+    $token = explode(".", substr($bearer, 7));
 
     if (
         !hash_equals(
@@ -193,8 +177,21 @@ if (!in_array($route, $guest_routes)) {
         base64_decode($token[0])
     );
 
-    global $user;
+    $app["request"]->user = new User($payload->user_id);
+}
 
-    $user = new User($payload->user_id);
+$route = pathinfo(
+    basename($_SERVER["REQUEST_URI"]),
+    PATHINFO_FILENAME,
+);
 
+$guest_routes = ["auth", "register"];
+
+if (
+    !in_array($route, $guest_routes) &&
+
+    !request()->user()
+) {
+    http_response_code(401);
+    exit;
 }

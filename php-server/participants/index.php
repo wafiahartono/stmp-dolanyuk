@@ -31,6 +31,12 @@ if (
     exit;
 }
 
-echo json_encode(
-    $result->fetch_all(MYSQLI_ASSOC)
-);
+while ($user = $result->fetch_object()) {
+    $user->picture = $user->picture
+        ? url("storage/$user->picture")
+        : null;
+
+    $users[] = $user;
+}
+
+echo json_encode($users ?? []);

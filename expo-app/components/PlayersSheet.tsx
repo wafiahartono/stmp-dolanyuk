@@ -44,7 +44,7 @@ function Component({ event, onClose }: PlayersSheetProps) {
     <Sheet
       open={!!event}
       onOpenChange={(open: boolean) => !open && onClose()}
-      snapPoints={[40]}
+      snapPointsMode="fit"
       dismissOnSnapToBottom
     >
       <Sheet.Overlay />
@@ -62,7 +62,7 @@ function Component({ event, onClose }: PlayersSheetProps) {
         {!fetchPlayersState.isLoading &&
           <YGroup size="$4" bordered separator={<Separator />}>
             {players.map(player =>
-              <YGroup.Item>
+              <YGroup.Item key={player.id}>
                 <ListItem
                   icon={
                     <Avatar size="$2" circular>

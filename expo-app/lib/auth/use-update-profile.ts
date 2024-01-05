@@ -1,27 +1,30 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useCallback, useState } from "react"
 
+import { File } from "../api/File"
 import { httpPost } from "../api/http-post"
 import { Task } from "../task/Task"
 import { completedState, initialState } from "../task/state"
-import { useAuthDispatch } from "./AuthContext"
+import { useAuth, useAuthDispatch } from "./AuthContext"
 
 export type UpdateProfileParams = {
   current_password?: string
   new_password?: string
   name?: string
+  picture?: File
 }
 
 export function useUpdateProfile(): [Task, (params: UpdateProfileParams) => Promise<void>] {
   const [state, setState] = useState<Task>(initialState)
 
+  const { user: authUser } = useAuth()
   const dispatch = useAuthDispatch()
 
   const fun = useCallback(async (params: UpdateProfileParams) => {
     setState({ ...initialState, isLoading: true })
 
     try {
-      const { user, token } = await httpPost("users", params)
+      const { user, token } = await httpPost("users", params, authUser!.token)
 
       user.token = token
 

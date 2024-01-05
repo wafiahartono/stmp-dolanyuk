@@ -70,9 +70,8 @@ function Component({ chat }: { chat: Chat }) {
 
       <XStack alignSelf="flex-end" ai="center" space="$1.5">
         {chat.user.self &&
-          (chat as any).loading
-          ? <Check color="$gray10" size="$radius.6" />
-          : <CheckCheck color="$gray10" size="$radius.6" />}
+          <CheckCheck color="$gray10" size="$radius.6" />
+        }
 
         <SizableText size="$1" col="$gray10">
           {chat.timestamp.toLocaleTimeString("default", { hour: "2-digit", minute: "2-digit" })}

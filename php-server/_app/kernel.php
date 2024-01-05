@@ -32,6 +32,11 @@ class Request
         return $_POST[$key] ?? null;
     }
 
+    public function file(string $key)
+    {
+        return $_POST[$key] ?? null;
+    }
+
     public function query(string $key)
     {
         return $_GET[$key] ?? null;
@@ -57,6 +62,11 @@ class User
     {
         $this->id = $id;
     }
+}
+
+function storage_path(): string
+{
+    return __DIR__ . DIRECTORY_SEPARATOR . "storage";
 }
 
 function request(): Request

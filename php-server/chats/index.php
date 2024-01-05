@@ -10,7 +10,7 @@ ensure_user_is_event_participant($user_id, $event_id);
 $sql = <<<SQL
     SELECT
         dolanyuk_chats.*,
-        dolanyuk_users.id,
+        dolanyuk_users.id as user_id,
         dolanyuk_users.name,
         dolanyuk_users.picture,
         (
@@ -42,13 +42,13 @@ if (
 
 while ($chat = $result->fetch_object()) {
     $chat->user = (object) [
-        "id" => $chat->user,
+        "id" => $chat->user_id,
         "name" => $chat->name,
         "picture" => $chat->picture,
         "self" => $chat->self === 1,
     ];
 
-    unset($chat->name, $chat->picture, $chat->self);
+    unset($chat->user_id, $chat->name, $chat->picture, $chat->self);
 
     $chats[] = $chat;
 }

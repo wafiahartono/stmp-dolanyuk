@@ -34,7 +34,7 @@ class Request
 
     public function file(string $key)
     {
-        return $_POST[$key] ?? null;
+        return $_FILES[$key] ?? null;
     }
 
     public function query(string $key)
@@ -64,9 +64,29 @@ class User
     }
 }
 
-function storage_path(): string
+function storage_put(string $path, array $file)
 {
-    return __DIR__ . DIRECTORY_SEPARATOR . "storage";
+    $filename = $path . DIRECTORY_SEPARATOR .
+        uniqid() . "." . pathinfo($file["name"], PATHINFO_EXTENSION);
+
+    $destination = __DIR__ . DIRECTORY_SEPARATOR .
+        "storage" . DIRECTORY_SEPARATOR .
+        $filename;
+
+    if (
+        $file["error"] !== UPLOAD_ERR_OK ||
+
+        !move_uploaded_file($file["tmp_name"], $destination)
+    ) {
+        return false;
+    }
+
+    return $filename;
+}
+
+function storage_delete(string $path): bool
+{
+    return unlink(__DIR__ . DIRECTORY_SEPARATOR . "storage" . DIRECTORY_SEPARATOR . $path);
 }
 
 function request(): Request

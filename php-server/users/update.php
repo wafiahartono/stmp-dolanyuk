@@ -9,29 +9,11 @@ $name = request()->input("name");
 $picture = request()->file("picture");
 
 if (
-    !isset($current_password, $new_password, $name, $picture) ||
+    (!$new_password && !$name && !$picture) ||
     ($new_password && !$current_password)
 ) {
     http_response_code(400);
     exit;
-}
-
-if ($picture) {
-    $filename = uniqid() . "." . pathinfo($picture["name"], PATHINFO_EXTENSION);
-
-    if (
-        $picture["error"] === UPLOAD_ERR_OK ||
-
-        !move_uploaded_file(
-            $picture["tmp_name"],
-            storage_path() . DIRECTORY_SEPARATOR .
-            "avatars" . DIRECTORY_SEPARATOR .
-            $filename,
-        )
-    ) {
-        http_response_code(500);
-        exit;
-    }
 }
 
 $mysqli = mysqli();
@@ -52,6 +34,28 @@ if ($new_password) {
 
     if (!password_verify($current_password, $user->password)) {
         http_response_code(401);
+        exit;
+    }
+}
+
+if ($picture) {
+    $select_user_sql = <<<SQL
+        SELECT picture FROM dolanyuk_users WHERE id = $user_id
+    SQL;
+
+    if (
+        !($result = mysqli()->query($select_user_sql)) ||
+
+        !($user = $result->fetch_object()) ||
+
+        ($user->picture && !storage_delete($user->picture))
+    ) {
+        http_response_code(500);
+        exit;
+    }
+
+    if (!($picture_filename = storage_put("avatars", $picture))) {
+        http_response_code(500);
         exit;
     }
 }
@@ -77,7 +81,7 @@ if ($name) {
 if ($picture) {
     $update_user_sql .= "\nSET picture = ?";
 
-    $sql_args["arg"][] = $filename;
+    $sql_args["arg"][] = $picture_filename;
     $sql_args["type"][] = "s";
 }
 

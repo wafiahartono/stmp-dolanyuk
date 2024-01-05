@@ -83,7 +83,7 @@ if ($picture) {
 }
 
 $update_user_sql .=
-    "" . join(", ", array_map(fn($x) => "$x = ?", $sql_args["column"])) . " " .
+    " " . join(", ", array_map(fn($x) => "$x = ?", $sql_args["column"])) . " " .
 
     "WHERE id = $user_id";
 

@@ -61,31 +61,31 @@ if ($picture) {
 }
 
 $update_user_sql = <<<SQL
-    UPDATE dolanyuk_users
+    UPDATE dolanyuk_users SET
 SQL;
 
 if ($new_password) {
-    $update_user_sql .= "\nSET password = ?";
-
+    $sql_args["column"][] = "password";
     $sql_args["arg"][] = password_hash($new_password, PASSWORD_BCRYPT);
     $sql_args["type"][] = "s";
 }
 
 if ($name) {
-    $update_user_sql .= "\nSET name = ?";
-
+    $sql_args["column"][] = "name";
     $sql_args["arg"][] = $name;
     $sql_args["type"][] = "s";
 }
 
 if ($picture) {
-    $update_user_sql .= "\nSET picture = ?";
-
+    $sql_args["column"][] = "picture";
     $sql_args["arg"][] = $picture_filename;
     $sql_args["type"][] = "s";
 }
 
-$update_user_sql .= "\nWHERE id = $user_id";
+$update_user_sql .=
+    "" . join(", ", array_map(fn($x) => "$x = ?", $sql_args["column"])) . " " .
+
+    "WHERE id = $user_id";
 
 if (
     !($statement = mysqli()->prepare($update_user_sql)) ||

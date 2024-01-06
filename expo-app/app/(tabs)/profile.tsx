@@ -6,6 +6,7 @@ import { Avatar, Button, Circle, H4, SizableText, Spinner, YStack } from "tamagu
 
 import { ArrowRightSquare, Image, Trash } from "@tamagui/lucide-icons"
 import { InputField } from "../../components/InputField"
+import { useEventDispatch } from "../../data/EventContext"
 import { File } from "../../lib/api/File"
 import { InvalidUserError } from "../../lib/api/InvalidUserError"
 import { useAuth } from "../../lib/auth/AuthContext"
@@ -16,7 +17,7 @@ import { UpdateProfileParams, useUpdateProfile } from "../../lib/auth/use-update
 export default function Profile() {
   const router = useRouter()
 
-  const { user } = useAuth() as { user: User }
+  const { user } = useAuth()
 
   const signOut = useSignOut()
 
@@ -133,6 +134,8 @@ export default function Profile() {
       })
   }, [picture, name, currentPassword, newPassword, newPasswordConfirm])
 
+  const eventDispatch = useEventDispatch()
+
   const handleSignOut = useCallback(() => {
     Alert.alert(
       "Confirm Sign Out",
@@ -142,11 +145,17 @@ export default function Profile() {
         {
           text: "Sign Out",
           onPress: () => signOut()
-            .then(() => router.replace("/signin"))
+            .then(() => {
+              eventDispatch({ type: "refresh", payload: [] })
+
+              router.replace("/signin")
+            })
         },
       ],
     )
   }, [])
+
+  if (!user) return null
 
   return (
     <YStack
@@ -162,11 +171,9 @@ export default function Profile() {
           boc="$blue8"
           circular
         >
-          <Avatar.Image
-            src={
-              picture ? picture.uri : user.picture
-            }
-          />
+          <Avatar.Image src={picture
+            ? picture.uri
+            : user.picture ?? `https://i.pravatar.cc/150?u=${user.name}`} />
         </Avatar>
 
         <Circle
